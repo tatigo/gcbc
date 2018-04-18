@@ -1,5 +1,5 @@
-var ElectronicHealthRecord = artifacts.require("./ElectronicHealthRecord.sol");
+var Business = artifacts.require("./Business.sol");
 
 module.exports = function(deployer) {
-  deployer.deploy(ElectronicHealthRecord);
+  deployer.deploy(Business);
 };
