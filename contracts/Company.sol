@@ -15,15 +15,8 @@ contract Company {
     
     event Registered(address _owner, string number);
 
-    function Company(string _name, string _number, address _owner) public {
-        if (_owner == 0) {
-            owner = msg.sender; // msg.sender is contract caller (address of contract creator)
-            } 
-        else {
-            owner = _owner;
-        }
-        name = _name;
-        number = _number;
+    function Company() public {
+        owner = msg.sender; // msg.sender is contract caller (address of contract creator)
     }
 
     function Register() public{
