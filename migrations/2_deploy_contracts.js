@@ -1,5 +1,5 @@
-var Business = artifacts.require("./Business.sol");
+var Company = artifacts.require("./Company.sol");
 
 module.exports = function(deployer) {
-  deployer.deploy(Business);
+  deployer.deploy(Company);
 };
