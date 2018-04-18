@@ -16,7 +16,7 @@ contract Company {
     event Registered(address _owner, string number);
 
     function Business(string _name, string _number, address _owner) public {
-         if (_owner == 0) {
+        if (_owner == 0) {
             owner = msg.sender; // msg.sender is contract caller (address of contract creator)
             } 
         else {
@@ -26,9 +26,9 @@ contract Company {
         number = _number;
     }
 
-     function Register() {
+    function Register() public{
         registrationStatus = RegistrationStatus.Registered;
-        Registered(owner,number);
+        emit Registered(owner,number);
     }
    
     function getArticlesOfIncorporation() public constant returns (string) {
