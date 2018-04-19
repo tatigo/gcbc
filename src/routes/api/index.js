@@ -6,7 +6,7 @@ var web3 = new Web3(Web3.givenProvider || "http://localhost:8545");
 web3.eth.defaultAccount = web3.eth.accounts[0];
 
 const getLocations = (req, res) => {
-  res.sendFile(process.cwd() + '/data/locations.json');
+  res.send(["hello!", "how doing?"]);
 }
 
 apiRouter.get('/locations', getLocations);
