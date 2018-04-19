@@ -4,7 +4,6 @@ import {
   Route
 } from 'react-router-dom';
 import MainArea from './features/MainArea/MainAreaContainer';
-import AdminArea from './features/AdminArea/AdminAreaContainer';
 import BlockChainViaAPI from './features/BlockChainViaAPI/BlockChainViaAPIContainer';
 import './App.css';
 
@@ -14,7 +13,6 @@ class App extends Component {
         <Router>
           <div>
             <Route exact path="/" component={MainArea}/>
-            <Route exact path="/admin" component={AdminArea}/>
             <Route exact path="/character" component={BlockChainViaAPI}/>
           </div>
         </Router>
