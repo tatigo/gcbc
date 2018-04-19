@@ -26,4 +26,31 @@ apiRouter.get('/character/:charKey', (req, res) => {
   
 });
 
+apiRouter.get('/signUp/', (req,res)=> {
+
+  // update a paratemer in the contract. 
+    var contractInstance;
+    contractAbi = require('');
+    newContract = web3.eth.contract(contractAbi);
+  
+    contractCompiled = "0x" + "";
+  
+    _contract = newContract.new(/*name, number,*/ {from:eth.accounts[0], data:contractCompiled, gas:3000000}, function(e, contract){
+     
+      if(e) {
+        console.error(e); // If something goes wrong, at least we'll know.
+        return;
+      }
+  
+      if(!contract.address) {
+        console.log("Contract transaction send: TransactionHash: " + contract.transactionHash + " waiting to be mined...");
+  
+      } else {
+        console.log("Contract mined! Address: " + contract.address);
+        console.log(contract);
+      }
+    });
+  
+  });
+
 module.exports = apiRouter;
