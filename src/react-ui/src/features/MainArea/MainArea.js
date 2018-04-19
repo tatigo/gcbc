@@ -11,7 +11,7 @@ export const web3 = uport.getWeb3()
 
 class MainArea extends Component {
   componentDidMount() {
-    this.props.fetchLocations();
+    
   }
 
   render() {
