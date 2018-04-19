@@ -30,27 +30,76 @@ apiRouter.get('/signUp/', (req,res)=> {
 
   // update a paratemer in the contract. 
     var contractInstance;
-    contractAbi = require('');
-    newContract = web3.eth.contract(contractAbi);
+    var contractCompiled = require('../../../build/contracts/Company.json');
+    var contractAbi = contractCompiled.abi;
+    var newContract = new web3.eth.Contract(contractAbi);
   
-    contractCompiled = "0x" + "";
-  
-    _contract = newContract.new(/*name, number,*/ {from:eth.accounts[0], data:contractCompiled, gas:3000000}, function(e, contract){
-     
-      if(e) {
-        console.error(e); // If something goes wrong, at least we'll know.
-        return;
-      }
-  
-      if(!contract.address) {
-        console.log("Contract transaction send: TransactionHash: " + contract.transactionHash + " waiting to be mined...");
-  
-      } else {
-        console.log("Contract mined! Address: " + contract.address);
-        console.log(contract);
-      }
+    var contractCode = contractCompiled.bytecode;
+    console.log(contractCode);
+ 
+    var myContract = new web3.eth.Contract(contractAbi,{from:web3.eth.accounts[0], data:contractCode, gas:3000000});
+    
+    var defaultAccount = web3.eth.accounts[0]; // THIS IS NOT WORKING FOR SOME REASON
+    console.log("WEB3 ACCOUNT LIST: " + defaultAccount);
+
+    myContract.deploy({
+      arguments: []
+    })
+    .send({
+        from: '0x913199e0522ed92ef8769f8bec27c00105fb65f6', // THIS WAS TAKEN FROM GANACHE CLI
+        gas: 1500000,
+        gasPrice: '0'
+    }, function(error, transactionHash){ console.log("TX Hash:" + transactionHash) })
+    // .on('error', function(error){ console.log(error) })
+    // .on('transactionHash', function(transactionHash){ console.log(transactionHash) })
+    // .on('receipt', function(receipt){
+    //    console.log(receipt.contractAddress) // contains the new contract address
+    // })
+    //.on('confirmation', function(confirmationNumber, receipt){ console.log(confirmationNumber) })
+    .then(function(newContractInstance){
+        console.log("CONTRACT ADDRESS: " + newContractInstance.options.address) // instance with the new contract address
     });
-  
+
+
   });
+
+  apiRouter.get('/update/:contractAddress/:name', (req,res)=> {
+    
+    var contractCompiled = require('../../../build/contracts/Company.json');
+    var contractAbi = contractCompiled.abi;
+    
+    var _contractInstance = new web3.eth.Contract(contractAbi,req.params.contractAddress);
+    //var myContract = _contractInstance.at(req.params.contractAddress);
+
+    _contractInstance.methods.setName(req.params.name).send({from:'0x913199e0522ed92ef8769f8bec27c00105fb65f6'})
+    .then(function(receipt) {
+      
+      console.log("TX Hash: "+ receipt.transactionHash);   
+    });
+
+
+
+  });
+
+  apiRouter.get('/viewResults/:contractAddress', (req,res)=> {
+
+
+    var contractCompiled = require('../../../build/contracts/Company.json');
+    var contractAbi = contractCompiled.abi;
+    
+    var _contractInstance = new web3.eth.Contract(contractAbi,req.params.contractAddress);
+    //var myContract = _contractInstance.at(req.params.contractAddress);
+
+    _contractInstance.methods.getName().call().then(function(v) {
+      var strName= v.toString();
+      console.log("Name: "+ strName);   
+    });
+
+
+  });
+
+
+
+
 
 module.exports = apiRouter;

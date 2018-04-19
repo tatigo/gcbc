@@ -32,4 +32,15 @@ contract Company {
         articlesOfIncorporation = _recordString;
         return true;
     }
+
+    function getName() public constant returns (string) {
+        return name;
+    }
+
+    function setName(string _name) public returns (bool) {
+        name = _name;
+        return true;
+    }
+
+
 }
