@@ -20,12 +20,7 @@ contract Company is Ownable {
     event Registered(address _owner, bytes32 number);
 
     bytes32[] private companiesList; //list of company numbers so we can enumerate them
-    mapping(bytes32 => CompanyDetails) private companiesDetailsList; //access by company number key and get the other details
-
-    modifier onlyOwner()  {
-        require(msg.sender == owner);
-        _;
-    }
+    mapping(bytes32 => CompanyDetails) private companiesDetailsList; //access by company number key and get the other details 
 
     function Company() public payable{
         owner = msg.sender; // msg.sender is contract caller (address of contract creator)
@@ -50,10 +45,6 @@ contract Company is Ownable {
     function lookupCompany(bytes32 _number) public constant returns(bytes32, string, uint, uint) {
         CompanyDetails memory companyDetails = companiesDetailsList[_number];
         return (companyDetails.number, companyDetails.name, uint(companyDetails.companyType), uint(companyDetails.registrationStatus));
-    }
-    
-    function transferOwnership(address newOwnerAddress)  public onlyOwner() {
-        owner = newOwnerAddress;
     }
 
     function removeContract() public onlyOwner() {
