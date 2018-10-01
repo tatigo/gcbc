@@ -2,6 +2,7 @@
 GC-Blockchain Codefest Repo (#GCBlockchsinDay) 
 
 This repository is a part of a Hackathon 
+https://gcblockchain-chainedeblocsgc.github.io/gcentities.html
 
 GCentities is a proposed project to share a central database of information on all Government departments, agencies, and crown corporations
 between GC departments and with the public (on an Open Government portal)
